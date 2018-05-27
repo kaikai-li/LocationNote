@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 public class NoteFragment extends Fragment {
 
+    public static final String TAG = NoteFragment.class.getSimpleName();
+
     public static NoteFragment newInstance() {
         return new NoteFragment();
     }

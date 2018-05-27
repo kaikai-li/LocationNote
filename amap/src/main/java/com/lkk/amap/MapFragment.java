@@ -16,6 +16,8 @@ import com.amap.api.maps2d.model.MyLocationStyle;
 
 public class MapFragment extends Fragment {
 
+    public static final String TAG = MapFragment.class.getSimpleName();
+
     private MapView mMapView;
     private AMap mMap;
 
