@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/fragment_content_switcher"
+    <item android:id="@+id/item_map"
+        android:icon="@drawable/ic_map"
+        android:title="@string/tab_map_title"
+        android:orderInCategory="0"/>
+    <item android:id="@+id/item_note"
         android:icon="@drawable/ic_event_note"
         android:title="@string/tab_note_title"
-        app:showAsAction="always" />
+        android:orderInCategory="1" />
+    <item android:id="@+id/item_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/tab_settings_title"
+        android:orderInCategory="2" />
 </menu>

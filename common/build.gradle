@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -20,8 +19,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':common')
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
-    implementation 'com.amap.api:map2d:latest.integration'
-    implementation 'com.amap.api:location:latest.integration'
+    implementation "com.jakewharton:butterknife:$rootProject.ext.butterknifVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifVersion"
 }

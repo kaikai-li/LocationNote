@@ -42,7 +42,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':amap')
+    implementation project(':common')
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
     implementation "com.android.support:design:$rootProject.ext.supportVersion"
     implementation 'pub.devrel:easypermissions:1.2.0'
+    implementation "com.jakewharton:butterknife:$rootProject.ext.butterknifVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifVersion"
 }

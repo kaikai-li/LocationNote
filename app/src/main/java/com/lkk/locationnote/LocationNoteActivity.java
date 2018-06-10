@@ -1,148 +1,83 @@
 package com.lkk.locationnote;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.lkk.amap.MapFragment;
+import com.lkk.locationnote.common.BaseActivity;
+import com.lkk.locationnote.common.TitleView;
 
-public class LocationNoteActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.OnPageChange;
 
-    private static final String EXTRA_CURRENT_MODE = "extra_current_mode";
-    private static final int MODE_MAP = 1;
-    private static final int MODE_NOTE = 2;
+public class LocationNoteActivity extends BaseActivity {
 
-    private DrawerLayout mDrawerLayout;
-    private Fragment mNoteFragment;
-    private Fragment mMapFragment;
-    private Fragment mCurrentFragment;
-    private int mCurrentMode = MODE_MAP;
+    @BindView(R.id.titleView)
+    TitleView mTitleView;
+    @BindView(R.id.viewPager)
+    ViewPager mViewPager;
+    @BindView(R.id.bottom_navigation)
+    BottomNavigationView mBottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_note);
 
-        if (savedInstanceState != null) {
-            mCurrentMode = savedInstanceState.getInt(EXTRA_CURRENT_MODE, MODE_MAP);
-        }
         initView();
-        uodateContentFragment();
     }
 
     private void initView() {
-        initActionBar();
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
+        mTitleView.setTitle(R.string.app_name);
+        ContentPagerAdapter adapter = new ContentPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(adapter);
+        mBottomNavigation.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                mViewPager.setCurrentItem(item.getOrder());
+                return true;
+            }
+        });
     }
 
-    private void initActionBar() {
-        Toolbar toolbar = findViewById(R.id.toolBar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer_entrance);
+    @OnPageChange(R.id.viewPager)
+    public void onViewPagerChange(int position) {
+        mBottomNavigation.getMenu().getItem(position).setChecked(true);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+    private class ContentPagerAdapter extends FragmentPagerAdapter {
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem switchItem = menu.findItem(R.id.fragment_content_switcher);
-        switch (mCurrentMode) {
-            case MODE_NOTE:
-                switchItem.setIcon(R.drawable.ic_map);
-                switchItem.setTitle(R.string.tab_map_title);
-                break;
-            case MODE_MAP:
-                switchItem.setIcon(R.drawable.ic_event_note);
-                switchItem.setTitle(R.string.tab_note_title);
-                break;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                break;
-            case R.id.fragment_content_switcher:
-                switch (mCurrentMode) {
-                    case MODE_MAP:
-                        mCurrentMode = MODE_NOTE;
-                        break;
-                    case MODE_NOTE:
-                        mCurrentMode = MODE_MAP;
-                        break;
-                }
-                uodateContentFragment();
-                break;
-        }
-        return true;
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(EXTRA_CURRENT_MODE, mCurrentMode);
-    }
-
-    private void uodateContentFragment() {
-        switch (mCurrentMode) {
-            case MODE_MAP:
-                showMapFragment();
-                break;
-            case MODE_NOTE:
-                showNoteFragment();
-                break;
+        public ContentPagerAdapter(FragmentManager fm) {
+            super(fm);
         }
 
-        invalidateOptionsMenu();
-    }
-
-    private void showMapFragment() {
-        if (mMapFragment == null) {
-            mMapFragment = MapFragment.newInstance();
-        }
-        commitFragment(mCurrentFragment, mMapFragment);
-    }
-
-    private void showNoteFragment() {
-        if (mNoteFragment == null) {
-            mNoteFragment = NoteFragment.newInstance();
-        }
-        commitFragment(mCurrentFragment, mNoteFragment);
-    }
-
-    private void commitFragment(Fragment fragmentFrom, Fragment fragmentTo) {
-        mCurrentFragment = fragmentTo;
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (fragmentFrom == null) {
-            transaction.replace(R.id.content_container, fragmentTo)
-                    .commitAllowingStateLoss();
-            return;
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment = null;
+            switch (position) {
+                case 0:
+                    fragment = MapFragment.newInstance();
+                    break;
+                case 1:
+                    fragment = NoteFragment.newInstance();
+                    break;
+                case 2:
+                    fragment = SettingsFragment.newInstance();
+                    break;
+            }
+            return fragment;
         }
 
-        if (fragmentTo.isAdded()) {
-            transaction.hide(fragmentFrom).show(fragmentTo)
-                    .commitAllowingStateLoss();
-        } else {
-            transaction.hide(fragmentFrom)
-                    .add(R.id.content_container, fragmentTo)
-                    .commitAllowingStateLoss();
+        @Override
+        public int getCount() {
+            return 3;
         }
     }
 }

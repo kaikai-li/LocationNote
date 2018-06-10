@@ -9,17 +9,15 @@ import android.view.ViewGroup;
 
 import com.lkk.locationnote.common.BaseFragment;
 
-public class NoteFragment extends BaseFragment {
+public class SettingsFragment extends BaseFragment {
 
-    public static final String TAG = NoteFragment.class.getSimpleName();
-
-    public static NoteFragment newInstance() {
-        return new NoteFragment();
+    public static SettingsFragment newInstance() {
+        return new SettingsFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tab_note, container, false);
+        return inflater.inflate(R.layout.fragment_tab_settings, container, false);
     }
 }

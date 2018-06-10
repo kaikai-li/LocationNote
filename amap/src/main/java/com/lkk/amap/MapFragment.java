@@ -3,7 +3,6 @@ package com.lkk.amap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,9 @@ import com.amap.api.maps2d.AMapOptions;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.MyLocationStyle;
+import com.lkk.locationnote.common.BaseFragment;
 
-public class MapFragment extends Fragment {
+public class MapFragment extends BaseFragment {
 
     public static final String TAG = MapFragment.class.getSimpleName();
 
