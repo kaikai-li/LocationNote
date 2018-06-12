@@ -2,21 +2,23 @@ package com.lkk.locationnote;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.lkk.amap.MapFragment;
 import com.lkk.locationnote.common.BaseActivity;
+import com.lkk.locationnote.common.BaseFragment;
+import com.lkk.locationnote.common.OnTitleRightIconCallback;
 import com.lkk.locationnote.common.TitleView;
 
 import butterknife.BindView;
 import butterknife.OnPageChange;
 
-public class LocationNoteActivity extends BaseActivity {
+public class LocationNoteActivity extends BaseActivity implements OnTitleRightIconCallback {
 
     @BindView(R.id.titleView)
     TitleView mTitleView;
@@ -52,6 +54,16 @@ public class LocationNoteActivity extends BaseActivity {
         mBottomNavigation.getMenu().getItem(position).setChecked(true);
     }
 
+    @Override
+    public void setRightIcon(int resId) {
+        mTitleView.setRightIcon(resId);
+    }
+
+    @Override
+    public void setRightIconClickListener(View.OnClickListener listener) {
+        mTitleView.setRightIconClickListener(listener);
+    }
+
     private class ContentPagerAdapter extends FragmentPagerAdapter {
 
         public ContentPagerAdapter(FragmentManager fm) {
@@ -59,8 +71,8 @@ public class LocationNoteActivity extends BaseActivity {
         }
 
         @Override
-        public Fragment getItem(int position) {
-            Fragment fragment = null;
+        public BaseFragment getItem(int position) {
+            BaseFragment fragment = null;
             switch (position) {
                 case 0:
                     fragment = MapFragment.newInstance();
@@ -71,6 +83,9 @@ public class LocationNoteActivity extends BaseActivity {
                 case 2:
                     fragment = SettingsFragment.newInstance();
                     break;
+            }
+            if (fragment != null) {
+                fragment.setRightIconCallback(LocationNoteActivity.this);
             }
             return fragment;
         }

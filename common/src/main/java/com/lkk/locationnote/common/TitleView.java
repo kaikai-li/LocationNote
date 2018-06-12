@@ -82,9 +82,7 @@ public class TitleView extends FrameLayout {
     }
 
     public void setLeftIconClickListener(OnClickListener listener) {
-        if (listener != null) {
-            mLeftIcon.setOnClickListener(listener);
-        }
+        mLeftIcon.setOnClickListener(listener);
     }
 
     public void setLeftText(int resId) {
@@ -106,9 +104,7 @@ public class TitleView extends FrameLayout {
     }
 
     public void setLeftTextClickListener(OnClickListener listener) {
-        if (listener != null) {
-            mLeftText.setOnClickListener(listener);
-        }
+        mLeftText.setOnClickListener(listener);
     }
 
     public void setRightIcon(int resId) {
@@ -121,9 +117,7 @@ public class TitleView extends FrameLayout {
     }
 
     public void setRightIconClickListener(OnClickListener listener) {
-        if (listener != null) {
-            mRightIcon.setOnClickListener(listener);
-        }
+        mRightIcon.setOnClickListener(listener);
     }
 
     public void setRightText(int resId) {
@@ -145,9 +139,7 @@ public class TitleView extends FrameLayout {
     }
 
     public void setRightTextClickListener(OnClickListener listener) {
-        if (listener != null) {
-            mRightText.setOnClickListener(listener);
-        }
+        mRightText.setOnClickListener(listener);
     }
 
     public void setRightIcon2(int resId) {
@@ -160,9 +152,7 @@ public class TitleView extends FrameLayout {
     }
 
     public void setRightIcon2ClickListener(OnClickListener listener) {
-        if (listener != null) {
-            mRightIcon2.setOnClickListener(listener);
-        }
+        mRightIcon2.setOnClickListener(listener);
     }
 
     public void setRightText2(int resId) {
@@ -184,8 +174,6 @@ public class TitleView extends FrameLayout {
     }
 
     public void setRightText2ClickListener(OnClickListener listener) {
-        if (listener != null) {
-            mRightText2.setOnClickListener(listener);
-        }
+        mRightText2.setOnClickListener(listener);
     }
 }

@@ -9,8 +9,15 @@ import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
     private Unbinder mUnbinder;
+    private OnTitleRightIconCallback mRightIconCallback;
+    private int mRightIconResId = -1;
+    private View.OnClickListener mRightIconClickListener;
+
+    public void setRightIconCallback(OnTitleRightIconCallback callback) {
+        mRightIconCallback = callback;
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -24,5 +31,22 @@ public class BaseFragment extends Fragment {
         if (mUnbinder != null) {
             mUnbinder.unbind();
         }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && mRightIconCallback != null) {
+            mRightIconCallback.setRightIcon(mRightIconResId);
+            mRightIconCallback.setRightIconClickListener(mRightIconClickListener);
+        }
+    }
+
+    protected void setRightIconResId(int resId) {
+        mRightIconResId = resId;
+    }
+
+    protected void setRightIconClickListener(View.OnClickListener listener) {
+        mRightIconClickListener = listener;
     }
 }
