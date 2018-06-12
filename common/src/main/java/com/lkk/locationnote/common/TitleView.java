@@ -3,7 +3,6 @@ package com.lkk.locationnote.common;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -36,16 +35,15 @@ public class TitleView extends FrameLayout {
     }
 
     private void initView() {
-        View rootView = LayoutInflater.from(getContext()).inflate(R.layout.title_view_layout,
-                this, true);
-        mBackground = rootView.findViewById(R.id.title_view);
-        mTitle = rootView.findViewById(R.id.title);
-        mLeftIcon = rootView.findViewById(R.id.title_left_icon);
-        mLeftText = rootView.findViewById(R.id.title_left_text);
-        mRightIcon = rootView.findViewById(R.id.title_right_icon);
-        mRightText = rootView.findViewById(R.id.title_right_text);
-        mRightIcon2 = rootView.findViewById(R.id.title_right_icon2);
-        mRightText2 = rootView.findViewById(R.id.title_right_text2);
+        View.inflate(getContext(), R.layout.title_view_layout, this);
+        mBackground = findViewById(R.id.title_view);
+        mTitle = findViewById(R.id.title);
+        mLeftIcon = findViewById(R.id.title_left_icon);
+        mLeftText = findViewById(R.id.title_left_text);
+        mRightIcon = findViewById(R.id.title_right_icon);
+        mRightText = findViewById(R.id.title_right_text);
+        mRightIcon2 = findViewById(R.id.title_right_icon2);
+        mRightText2 = findViewById(R.id.title_right_text2);
     }
 
     public void setBackground(int colorId) {
