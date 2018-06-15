@@ -22,4 +22,6 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
     implementation "com.jakewharton:butterknife:$rootProject.ext.butterknifVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifVersion"
+    implementation "android.arch.persistence.room:runtime:$rootProject.ext.roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.ext.roomVersion"
 }

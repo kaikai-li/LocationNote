@@ -47,4 +47,5 @@ ext {
     versionName = version.versionName
     butterknifVersion = '8.8.1'
     espressoVersion = '3.0.1'
+    roomVersion = '1.1.1-rc1'
 }
