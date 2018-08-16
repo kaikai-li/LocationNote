@@ -1,3 +1,4 @@
 include ':app'
 include ':amap'
 include ':common'
+include ':note'

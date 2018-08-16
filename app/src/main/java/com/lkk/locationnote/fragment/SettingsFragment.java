@@ -1,4 +1,4 @@
-package com.lkk.locationnote;
+package com.lkk.locationnote.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lkk.locationnote.R;
 import com.lkk.locationnote.common.BaseFragment;
 
 public class SettingsFragment extends BaseFragment {

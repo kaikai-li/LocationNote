@@ -1,4 +1,4 @@
-package com.lkk.locationnote;
+package com.lkk.locationnote.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
+
+import com.lkk.locationnote.R;
 
 import java.util.List;
 

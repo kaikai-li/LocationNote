@@ -14,11 +14,14 @@ import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.MyLocationStyle;
 import com.lkk.locationnote.common.BaseFragment;
 
+import butterknife.BindView;
+
 public class MapFragment extends BaseFragment {
 
     public static final String TAG = MapFragment.class.getSimpleName();
 
-    private MapView mMapView;
+    @BindView(R2.id.mapView)
+    MapView mMapView;
     private AMap mMap;
 
     public static MapFragment newInstance() {
@@ -34,7 +37,6 @@ public class MapFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mMapView = view.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
         if (mMap == null) {
             mMap = mMapView.getMap();
@@ -73,8 +75,8 @@ public class MapFragment extends BaseFragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         mMapView.onDestroy();
+        super.onDestroyView();
     }
 
     @Override

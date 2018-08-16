@@ -1,4 +1,4 @@
-package com.lkk.locationnote;
+package com.lkk.locationnote.activity;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,10 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.lkk.amap.MapFragment;
+import com.lkk.locationnote.R;
+import com.lkk.locationnote.fragment.SettingsFragment;
 import com.lkk.locationnote.common.BaseActivity;
 import com.lkk.locationnote.common.BaseFragment;
 import com.lkk.locationnote.common.OnTitleRightIconCallback;
 import com.lkk.locationnote.common.TitleView;
+import com.lkk.locationnote.note.view.NoteFragment;
 
 import butterknife.BindView;
 import butterknife.OnPageChange;
