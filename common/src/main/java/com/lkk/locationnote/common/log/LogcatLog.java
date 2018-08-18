@@ -5,9 +5,6 @@ import android.util.Log;
 public class LogcatLog implements ILog {
 
     @Override
-    public void init() {}
-
-    @Override
     public void v(String tag, String msg) {
         Log.v(tag, msg);
     }

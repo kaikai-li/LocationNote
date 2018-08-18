@@ -34,9 +34,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.sign
+            applicationIdSuffix ".release"
         }
         debug {
             signingConfig signingConfigs.sign
+            applicationIdSuffix ".debug"
         }
     }
     lintOptions {
