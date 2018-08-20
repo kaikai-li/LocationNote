@@ -27,4 +27,6 @@ dependencies {
     implementation "com.android.support:design:$rootProject.ext.supportVersion"
     implementation "com.jakewharton:butterknife:$rootProject.ext.butterknifVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifVersion"
+    implementation "android.arch.lifecycle:extensions:$rootProject.ext.lifecycle_version"
+    implementation 'com.amap.api:search:latest.integration'
 }

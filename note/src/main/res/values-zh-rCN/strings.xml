@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_empty_text">暂无笔记</string>
+    <string name="note_location_unknown">未知</string>
+</resources>

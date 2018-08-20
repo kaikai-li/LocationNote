@@ -10,8 +10,8 @@ public class NoteEntity {
     private String title;
     private String content;
     private long time;
-    private String longitude;
-    private String latitude;
+    private long longitude;
+    private long latitude;
 
     public int getId() {
         return id;
@@ -45,19 +45,25 @@ public class NoteEntity {
         this.time = time;
     }
 
-    public String getLongitude() {
+    public long getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(long longitude) {
         this.longitude = longitude;
     }
 
-    public String getLatitude() {
+    public long getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(long latitude) {
         this.latitude = latitude;
+    }
+
+    @Override
+    public String toString() {
+        return "NoteEntity: title= " + title + ",content= " + content + ",time= "
+                + time + ",longitude= " + longitude + ",latitude= " + latitude;
     }
 }

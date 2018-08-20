@@ -7,6 +7,6 @@ public interface NotesDataSource {
 
     interface NotesCallback<T> {
         void onSuccess(T result);
-        void onFail();
+        void onFail(String msg);
     }
 }
