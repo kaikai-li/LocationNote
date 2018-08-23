@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -42,7 +43,8 @@ public class NoteRecyclerViewAdapter extends
     @NonNull
     @Override
     public NoteItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new NoteItemViewHolder(View.inflate(mContext, R.layout.note_list_item_view, parent));
+        return new NoteItemViewHolder(LayoutInflater.from(mContext)
+                .inflate(R.layout.note_list_item_view, parent, false));
     }
 
     @Override

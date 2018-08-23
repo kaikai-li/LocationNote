@@ -2,4 +2,9 @@
     <string name="app_name">note</string>
     <string name="note_empty_text">Empty note</string>
     <string name="note_location_unknown">Unknown</string>
+    <string name="add_note_title_hint">Title</string>
+    <string name="back">back</string>
+    <string name="add_note_done">done</string>
+    <string name="note_title_empty">Note title is empty!</string>
+    <string name="location_fail">Location fail</string>
 </resources>

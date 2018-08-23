@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">common</string>
+    <string name="ok">OK</string>
+    <string name="location_rationale_text">Please open location permission</string>
 </resources>

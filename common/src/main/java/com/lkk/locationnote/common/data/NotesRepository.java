@@ -27,4 +27,19 @@ public class NotesRepository implements NotesDataSource {
     public void loadNotes(NotesCallback<List<NoteEntity>> callback) {
         mLocalDataSource.loadNotes(callback);
     }
+
+    @Override
+    public void getNote(int noteId, NotesCallback<NoteEntity> callback) {
+        mLocalDataSource.getNote(noteId, callback);
+    }
+
+    @Override
+    public void insertNote(NoteEntity note, NotesCallback<Boolean> callback) {
+        mLocalDataSource.insertNote(note, callback);
+    }
+
+    @Override
+    public void updateNote(NoteEntity note, NotesCallback<Integer> callback) {
+        mLocalDataSource.updateNote(note, callback);
+    }
 }

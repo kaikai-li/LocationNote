@@ -1,5 +1,6 @@
 package com.lkk.locationnote.note.view;
 
+import android.Manifest;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -23,10 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import pub.devrel.easypermissions.EasyPermissions;
+import pub.devrel.easypermissions.PermissionRequest;
 
-public class NoteFragment extends BaseFragment {
+public class NoteFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks {
 
     public static final String TAG = NoteFragment.class.getSimpleName();
+    private String[] perms = {Manifest.permission.ACCESS_COARSE_LOCATION};
+    private static final int REQUEST_PERMISSION_CODE = 0x301;
 
     @BindView(R2.id.note_recycler_view)
     RecyclerView mNoteRecyclerView;
@@ -93,8 +98,34 @@ public class NoteFragment extends BaseFragment {
         setRightIconClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (EasyPermissions.hasPermissions(getContext(), perms)) {
+                    NoteAddEditActivity.start(getContext());
+                } else {
+                    EasyPermissions.requestPermissions(new PermissionRequest
+                            .Builder(NoteFragment.this, REQUEST_PERMISSION_CODE, perms)
+                            .setRationale(R.string.location_rationale_text)
+                            .setPositiveButtonText(R.string.ok)
+                            .setTheme(R.style.alertDialogStype)
+                            .build());
+                }
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        Log.d(TAG, "On permissions granted");
+        NoteAddEditActivity.start(getContext());
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        Log.d(TAG, "On permissions denied");
     }
 }

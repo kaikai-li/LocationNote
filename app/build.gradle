@@ -34,11 +34,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.sign
-            applicationIdSuffix ".release"
         }
         debug {
             signingConfig signingConfigs.sign
-            applicationIdSuffix ".debug"
         }
     }
     lintOptions {
@@ -53,7 +51,7 @@ dependencies {
     implementation project(':common')
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
     implementation "com.android.support:design:$rootProject.ext.supportVersion"
-    implementation 'pub.devrel:easypermissions:1.2.0'
+    implementation "pub.devrel:easypermissions:$rootProject.ext.easyPermission_version"
     implementation "com.jakewharton:butterknife:$rootProject.ext.butterknifVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifVersion"
     androidTestImplementation 'com.android.support.test:rules:1.0.1'

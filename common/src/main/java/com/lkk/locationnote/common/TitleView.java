@@ -1,6 +1,7 @@
 package com.lkk.locationnote.common;
 
 import android.content.Context;
+import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -72,7 +73,7 @@ public class TitleView extends FrameLayout {
         }
     }
 
-    public void setLeftIcon(int resId) {
+    public void setLeftIcon(@DrawableRes int resId) {
         if (resId != -1) {
             mLeftIcon.setVisibility(VISIBLE);
             mLeftIcon.setImageResource(resId);

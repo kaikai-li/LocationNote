@@ -19,4 +19,6 @@ public interface NotesDao {
     public int updateNotes(NoteEntity... notes);
     @Query("SELECT * FROM notes")
     public List<NoteEntity> loadAllNotes();
+    @Query("SELECT * FROM notes WHERE id = :noteId")
+    public NoteEntity getNoteById(int noteId);
 }

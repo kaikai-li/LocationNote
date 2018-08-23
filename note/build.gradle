@@ -29,4 +29,6 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifVersion"
     implementation "android.arch.lifecycle:extensions:$rootProject.ext.lifecycle_version"
     implementation 'com.amap.api:search:latest.integration'
+    implementation 'com.amap.api:location:latest.integration'
+    implementation "pub.devrel:easypermissions:$rootProject.ext.easyPermission_version"
 }

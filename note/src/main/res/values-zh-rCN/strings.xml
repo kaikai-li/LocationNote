@@ -2,4 +2,9 @@
 <resources>
     <string name="note_empty_text">暂无笔记</string>
     <string name="note_location_unknown">未知</string>
+    <string name="add_note_title_hint">标题</string>
+    <string name="back">返回</string>
+    <string name="add_note_done">完成</string>
+    <string name="note_title_empty">标题不允许为空！</string>
+    <string name="location_fail">定位失败</string>
 </resources>

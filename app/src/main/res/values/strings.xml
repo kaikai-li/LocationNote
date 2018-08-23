@@ -3,6 +3,4 @@
     <string name="tab_map_title">Map</string>
     <string name="tab_note_title">Note</string>
     <string name="tab_settings_title">Settings</string>
-    <string name="ok">OK</string>
-    <string name="location_rationale_text">Please open location permission</string>
 </resources>
