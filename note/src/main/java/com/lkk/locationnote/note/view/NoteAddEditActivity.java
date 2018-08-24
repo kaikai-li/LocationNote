@@ -6,6 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.lkk.locationnote.common.BaseActivity;
+import com.lkk.locationnote.note.event.BackPressedEvent;
+import com.lkk.locationnote.note.event.HideKeyboardEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class NoteAddEditActivity extends BaseActivity {
 
@@ -28,10 +34,32 @@ public class NoteAddEditActivity extends BaseActivity {
         NoteAddEditFragment fragment = (NoteAddEditFragment) getSupportFragmentManager()
                 .findFragmentById(android.R.id.content);
         if (fragment == null) {
-            fragment = NoteAddEditFragment.getInstance(getIntent().getIntExtra(EXTRA_NOTE_ID, -1));
+            fragment = NoteAddEditFragment.newInstance(getIntent().getIntExtra(EXTRA_NOTE_ID, -1));
             getSupportFragmentManager().beginTransaction()
                     .replace(android.R.id.content, fragment)
                     .commitAllowingStateLoss();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onBackPressedEvent(BackPressedEvent event) {
+        onBackPressed();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void hideSoftKeyboard(HideKeyboardEvent event) {
+        hideSoftKeyboard();
     }
 }

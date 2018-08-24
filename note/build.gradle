@@ -31,4 +31,5 @@ dependencies {
     implementation 'com.amap.api:search:latest.integration'
     implementation 'com.amap.api:location:latest.integration'
     implementation "pub.devrel:easypermissions:$rootProject.ext.easyPermission_version"
+    implementation "org.greenrobot:eventbus:$rootProject.ext.eventbus_version"
 }

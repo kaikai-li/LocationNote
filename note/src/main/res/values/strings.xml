@@ -7,4 +7,7 @@
     <string name="add_note_done">done</string>
     <string name="note_title_empty">Note title is empty!</string>
     <string name="location_fail">Location fail</string>
+    <string name="new_note_text">Create note</string>
+    <string name="update_note_text">Update note</string>
+    <string name="note_detail_text">Detail</string>
 </resources>

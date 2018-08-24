@@ -19,7 +19,11 @@ import com.lkk.locationnote.common.TitleView;
 import com.lkk.locationnote.common.data.NoteEntity;
 import com.lkk.locationnote.note.R;
 import com.lkk.locationnote.note.R2;
+import com.lkk.locationnote.note.event.BackPressedEvent;
+import com.lkk.locationnote.note.event.HideKeyboardEvent;
 import com.lkk.locationnote.note.viewmodel.AddEditViewModel;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,7 +45,7 @@ public class NoteAddEditFragment extends BaseFragment {
     private AddEditViewModel mViewModel;
     private AddEditViewModel.NoteLocation mMapLocation;
 
-    public static NoteAddEditFragment getInstance(int noteId) {
+    public static NoteAddEditFragment newInstance(int noteId) {
         NoteAddEditFragment fragment = new NoteAddEditFragment();
         Bundle bundle = new Bundle(1);
         bundle.putInt(EXTRA_NOTE_ID, noteId);
@@ -75,7 +79,7 @@ public class NoteAddEditFragment extends BaseFragment {
         mViewModel.getNoteUpdated().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void aVoid) {
-                getActivity().finish();
+                EventBus.getDefault().post(new BackPressedEvent());
             }
         });
         mViewModel.getLocation().observe(this, new Observer<AddEditViewModel.NoteLocation>() {
@@ -101,11 +105,16 @@ public class NoteAddEditFragment extends BaseFragment {
     }
 
     private void initTitleView() {
+        if (mNoteId < 0) {
+            mTitleView.setTitle(R.string.new_note_text);
+        } else {
+            mTitleView.setTitle(R.string.update_note_text);
+        }
         mTitleView.setLeftIcon(R.drawable.ic_arrow_back);
         mTitleView.setLeftIconClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().finish();
+                EventBus.getDefault().post(new BackPressedEvent());
             }
         });
         mTitleView.setLeftText(R.string.back);
@@ -113,6 +122,7 @@ public class NoteAddEditFragment extends BaseFragment {
         mTitleView.setRightTextClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                EventBus.getDefault().post(new HideKeyboardEvent());
                 String title = mTitle.getText().toString();
                 if (TextUtils.isEmpty(title)) {
                     showSnackbar(getView(), R.string.note_title_empty);

@@ -34,7 +34,7 @@ public class AddEditViewModel extends AndroidViewModel {
     public AddEditViewModel(@NonNull Application application) {
         super(application);
         mContext = application.getApplicationContext();
-        mRepository = Injection.provideNotesRepository(application.getApplicationContext());
+        mRepository = Injection.provideNotesRepository(mContext);
     }
 
     public MutableLiveData<NoteEntity> getNote() {

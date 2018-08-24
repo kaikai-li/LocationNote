@@ -15,6 +15,7 @@
 
     <application>
         <activity android:name=".view.NoteAddEditActivity" />
+        <activity android:name=".view.NoteDetailActivity" />
         <service android:name="com.amap.api.location.APSService"></service>
     </application>
 </manifest>

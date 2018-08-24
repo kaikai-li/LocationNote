@@ -6,23 +6,22 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import com.lkk.locationnote.common.Injection;
-import com.lkk.locationnote.common.data.NoteDatabase;
 import com.lkk.locationnote.common.data.NoteEntity;
 import com.lkk.locationnote.common.data.NotesDataSource;
-import com.lkk.locationnote.common.data.NotesLocalDataSource;
 import com.lkk.locationnote.common.data.NotesRepository;
 import com.lkk.locationnote.common.log.Log;
 
 import java.util.List;
 
-public class NoteViewModel extends AndroidViewModel {
+public class NoteListViewModel extends AndroidViewModel {
 
-    private static final String TAG = NoteViewModel.class.getSimpleName();
+    private static final String TAG = NoteListViewModel.class.getSimpleName();
 
     private NotesRepository mRepository;
     private MutableLiveData<List<NoteEntity>> mNotes = new MutableLiveData<>();
+    private MutableLiveData<Integer> mOpenNoteEvent = new MutableLiveData<>();
 
-    public NoteViewModel(@NonNull Application application) {
+    public NoteListViewModel(@NonNull Application application) {
         super(application);
         mRepository = Injection.provideNotesRepository(application.getApplicationContext());
     }
@@ -44,5 +43,9 @@ public class NoteViewModel extends AndroidViewModel {
                 Log.e(TAG, "Load notes fail, " + msg);
             }
         });
+    }
+
+    public MutableLiveData<Integer> getOpenNoteEvent() {
+        return mOpenNoteEvent;
     }
 }

@@ -52,4 +52,5 @@ ext {
     roomVersion = '1.1.1'
     lifecycle_version = '1.1.0'
     easyPermission_version = '1.2.0'
+    eventbus_version = '3.1.1'
 }

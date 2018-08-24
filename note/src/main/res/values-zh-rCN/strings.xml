@@ -7,4 +7,7 @@
     <string name="add_note_done">完成</string>
     <string name="note_title_empty">标题不允许为空！</string>
     <string name="location_fail">定位失败</string>
+    <string name="new_note_text">新建笔记</string>
+    <string name="update_note_text">更新笔记</string>
+    <string name="note_detail_text">详情</string>
 </resources>

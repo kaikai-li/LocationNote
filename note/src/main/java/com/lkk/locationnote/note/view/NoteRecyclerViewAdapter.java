@@ -21,6 +21,7 @@ import com.lkk.locationnote.common.log.Log;
 import com.lkk.locationnote.common.utils.Util;
 import com.lkk.locationnote.note.R;
 import com.lkk.locationnote.note.R2;
+import com.lkk.locationnote.note.viewmodel.NoteListViewModel;
 
 import java.util.List;
 
@@ -33,18 +34,22 @@ public class NoteRecyclerViewAdapter extends
     private static final String TAG = NoteRecyclerViewAdapter.class.getSimpleName();
 
     private Context mContext;
+    private NoteListViewModel mViewModel;
     private List<NoteEntity> mNotes;
 
-    public NoteRecyclerViewAdapter(Context context, List<NoteEntity> notes) {
+    public NoteRecyclerViewAdapter(Context context, NoteListViewModel model,
+                                   List<NoteEntity> notes) {
         mContext = context;
+        mViewModel = model;
         mNotes = notes;
     }
 
     @NonNull
     @Override
     public NoteItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new NoteItemViewHolder(LayoutInflater.from(mContext)
-                .inflate(R.layout.note_list_item_view, parent, false));
+        View itemView = LayoutInflater.from(mContext)
+                .inflate(R.layout.note_list_item_view, parent, false);
+        return new NoteItemViewHolder(itemView);
     }
 
     @Override
@@ -87,7 +92,11 @@ public class NoteRecyclerViewAdapter extends
         notifyDataSetChanged();
     }
 
-    public static class NoteItemViewHolder extends RecyclerView.ViewHolder {
+    private int getNoteItemId(int position) {
+        return mNotes.get(position).getId();
+    }
+
+    class NoteItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R2.id.note_item_location)
         TextView mLocation;
@@ -101,6 +110,12 @@ public class NoteRecyclerViewAdapter extends
         public NoteItemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            mViewModel.getOpenNoteEvent().setValue(getNoteItemId(getAdapterPosition()));
         }
     }
 }

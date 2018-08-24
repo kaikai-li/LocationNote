@@ -18,18 +18,18 @@ import com.lkk.locationnote.common.data.NoteEntity;
 import com.lkk.locationnote.common.log.Log;
 import com.lkk.locationnote.note.R;
 import com.lkk.locationnote.note.R2;
-import com.lkk.locationnote.note.viewmodel.NoteViewModel;
+import com.lkk.locationnote.note.viewmodel.NoteListViewModel;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import pub.devrel.easypermissions.EasyPermissions;
 import pub.devrel.easypermissions.PermissionRequest;
 
-public class NoteFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks {
+public class NoteListFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks {
 
-    public static final String TAG = NoteFragment.class.getSimpleName();
+    public static final String TAG = NoteListFragment.class.getSimpleName();
     private String[] perms = {Manifest.permission.ACCESS_COARSE_LOCATION};
     private static final int REQUEST_PERMISSION_CODE = 0x301;
 
@@ -39,10 +39,10 @@ public class NoteFragment extends BaseFragment implements EasyPermissions.Permis
     TextView mEmptyView;
 
     private NoteRecyclerViewAdapter mAdapter;
-    private NoteViewModel mViewModel;
+    private NoteListViewModel mViewModel;
 
-    public static NoteFragment newInstance() {
-        return new NoteFragment();
+    public static NoteListFragment newInstance() {
+        return new NoteListFragment();
     }
 
     @Nullable
@@ -56,11 +56,11 @@ public class NoteFragment extends BaseFragment implements EasyPermissions.Permis
         super.onViewCreated(view, savedInstanceState);
 
         initTitle();
-        mViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(NoteListViewModel.class);
         mNoteRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         mNoteRecyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new NoteRecyclerViewAdapter(getContext(), new ArrayList<NoteEntity>(0));
+        mAdapter = new NoteRecyclerViewAdapter(getContext(), mViewModel, Collections.EMPTY_LIST);
         mNoteRecyclerView.setAdapter(mAdapter);
     }
 
@@ -73,6 +73,13 @@ public class NoteFragment extends BaseFragment implements EasyPermissions.Permis
                 Log.d(TAG, "Notes changed");
                 mAdapter.replaceData(noteEntities);
                 setContentVisible(noteEntities == null || noteEntities.isEmpty());
+            }
+        });
+        mViewModel.getOpenNoteEvent().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer id) {
+                Log.d(TAG, "Open note detail, id= " + id);
+                NoteDetailActivity.start(getContext(), id);
             }
         });
     }
@@ -102,7 +109,7 @@ public class NoteFragment extends BaseFragment implements EasyPermissions.Permis
                     NoteAddEditActivity.start(getContext());
                 } else {
                     EasyPermissions.requestPermissions(new PermissionRequest
-                            .Builder(NoteFragment.this, REQUEST_PERMISSION_CODE, perms)
+                            .Builder(NoteListFragment.this, REQUEST_PERMISSION_CODE, perms)
                             .setRationale(R.string.location_rationale_text)
                             .setPositiveButtonText(R.string.ok)
                             .setTheme(R.style.alertDialogStype)

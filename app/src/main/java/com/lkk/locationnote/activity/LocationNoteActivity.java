@@ -16,7 +16,7 @@ import com.lkk.locationnote.common.BaseActivity;
 import com.lkk.locationnote.common.BaseFragment;
 import com.lkk.locationnote.common.OnTitleRightIconCallback;
 import com.lkk.locationnote.common.TitleView;
-import com.lkk.locationnote.note.view.NoteFragment;
+import com.lkk.locationnote.note.view.NoteListFragment;
 
 import butterknife.BindView;
 import butterknife.OnPageChange;
@@ -81,7 +81,7 @@ public class LocationNoteActivity extends BaseActivity implements OnTitleRightIc
                     fragment = MapFragment.newInstance();
                     break;
                 case 1:
-                    fragment = NoteFragment.newInstance();
+                    fragment = NoteListFragment.newInstance();
                     break;
                 case 2:
                     fragment = SettingsFragment.newInstance();

@@ -19,7 +19,9 @@
             android:hint="@string/add_note_title_hint"
             android:textColorHint="@color/color_9B9B9B"
             android:textSize="@dimen/note_title_size"
-            android:textColor="@color/color_B3000000"/>
+            android:textColor="@color/color_B3000000"
+            android:paddingStart="@dimen/note_content_margin"
+            android:paddingEnd="@dimen/note_content_margin"/>
     </android.support.design.widget.TextInputLayout>
     <EditText
         android:id="@+id/add_edit_content"
@@ -29,7 +31,9 @@
         android:textColor="@color/color_B3000000"
         android:minLines="20"
         android:gravity="start|top"
-        android:layout_below="@id/content_title_wrapper" />
+        android:layout_below="@id/content_title_wrapper"
+        android:paddingStart="@dimen/note_content_margin"
+        android:paddingEnd="@dimen/note_content_margin"/>
     <TextView
         android:id="@+id/add_edit_location"
         android:layout_width="match_parent"
@@ -41,6 +45,7 @@
         android:drawableStart="@drawable/ic_note_place"
         android:layout_below="@id/add_edit_content"
         tools:text="location"
-        android:layout_marginStart="10dp"/>
+        android:layout_marginStart="@dimen/note_content_margin"
+        android:layout_marginEnd="@dimen/note_content_margin"/>
 
 </RelativeLayout>
