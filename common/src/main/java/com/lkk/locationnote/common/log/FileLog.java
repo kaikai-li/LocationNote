@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import com.lkk.locationnote.common.utils.PreferenceUtil;
 import com.lkk.locationnote.common.utils.Util;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,15 +19,12 @@ import java.io.IOException;
 public class FileLog implements ILog {
 
     private static final int LOG_FILE_SIZE = 5 * 1024 * 1024;
-    private static final int MSG_WHAT_INIT = 0x300;
-    private static final int MSG_WHAT_LOG = 0x301;
+    private static final int MSG_WHAT_LOG = 0x300;
     private static final String LOG_MASSAGE = "LOG_MASSAGE";
 
     private HandlerThread mLogThread;
     private Handler mHandler;
     private Context mContext;
-    // TODO writer is not closed
-    private BufferedWriter mWriter;
     private String mProcessName;
 
     public FileLog(Application application) {
@@ -40,26 +36,37 @@ public class FileLog implements ILog {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                switch (msg.what) {
-                    case MSG_WHAT_INIT:
-                        init();
-                        break;
-                    case MSG_WHAT_LOG:
+                if (msg.what == MSG_WHAT_LOG) {
+                    File file = getLogFile();
+                    if (file == null) {
+                        return;
+                    }
+                    String logMsg = msg.getData().getString(LOG_MASSAGE);
+                    if (TextUtils.isEmpty(logMsg)) {
+                        return;
+                    }
+                    FileWriter writer = null;
+                    try {
+                        writer = new FileWriter(getLogFile(), true);
+                        writer.append(logMsg);
+                        writer.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
                         try {
-                            mWriter.write(msg.getData().getString(LOG_MASSAGE));
-                            mWriter.newLine();
-                            mWriter.flush();
+                            if (writer != null) {
+                                writer.close();
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        break;
+                    }
                 }
             }
         };
-        mHandler.sendEmptyMessage(MSG_WHAT_INIT);
     }
 
-    private void init() {
+    private File getLogFile() {
         String logsDir = mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath() + "/logs";
         File logsDirFile = new File(logsDir);
         if (!logsDirFile.exists()) {
@@ -88,12 +95,8 @@ public class FileLog implements ILog {
                 e.printStackTrace();
             }
         }
-        try {
-            mWriter = new BufferedWriter(new FileWriter(logFile.getAbsoluteFile(),
-                    true), 2048);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        return logFile;
     }
 
     @Override
