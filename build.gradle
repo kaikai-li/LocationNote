@@ -32,7 +32,7 @@ def makeVersion() {
     def versionMinor = 0
     def versionPatch = 0
 
-    def versionCode = versionMajor * 10000000 + versionMinor * 100000 + versionPatch * 10000;
+    def versionCode = versionMajor * 10000000 + versionMinor * 100000 + versionPatch * 10000
     return ["versionCode" : versionCode,
             "versionName": "${versionMajor}.${versionMinor}.${versionPatch}"]
 }

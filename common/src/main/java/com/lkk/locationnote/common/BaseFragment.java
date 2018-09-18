@@ -1,7 +1,6 @@
 package com.lkk.locationnote.common;
 
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -14,15 +13,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
-    private Unbinder mUnbinder;
-    private OnTitleRightIconCallback mRightIconCallback;
-    @DrawableRes
-    private int mRightIconResId = -1;
-    private View.OnClickListener mRightIconClickListener;
 
-    public void setRightIconCallback(OnTitleRightIconCallback callback) {
-        mRightIconCallback = callback;
-    }
+    private Unbinder mUnbinder;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -36,23 +28,6 @@ public abstract class BaseFragment extends Fragment {
         if (mUnbinder != null) {
             mUnbinder.unbind();
         }
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && mRightIconCallback != null) {
-            mRightIconCallback.setRightIcon(mRightIconResId);
-            mRightIconCallback.setRightIconClickListener(mRightIconClickListener);
-        }
-    }
-
-    protected void setRightIconResId(@DrawableRes int resId) {
-        mRightIconResId = resId;
-    }
-
-    protected void setRightIconClickListener(View.OnClickListener listener) {
-        mRightIconClickListener = listener;
     }
 
     protected void showSnackbar(View view, String message) {

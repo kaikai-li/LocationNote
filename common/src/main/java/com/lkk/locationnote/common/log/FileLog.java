@@ -126,8 +126,7 @@ public class FileLog implements ILog {
 
     private void logMessage(Level level, String tag, String msg) {
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(Util.formatTime(System.currentTimeMillis()));
-        stringBuffer.append("|" + mProcessName);
+        stringBuffer.append(Util.formatTime(System.currentTimeMillis()) + "|" + mProcessName);
         switch (level) {
             case VERBOSE:
                 stringBuffer.append("|[V]|");
@@ -145,8 +144,7 @@ public class FileLog implements ILog {
                 stringBuffer.append("|[E]|");
                 break;
         }
-        stringBuffer.append(tag + "|");
-        stringBuffer.append(msg);
+        stringBuffer.append(tag + "|" + msg);
         Message message = Message.obtain();
         message.what = MSG_WHAT_LOG;
         Bundle bundle = new Bundle(1);

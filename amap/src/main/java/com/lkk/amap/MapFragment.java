@@ -12,11 +12,11 @@ import com.amap.api.maps2d.AMapOptions;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.MyLocationStyle;
-import com.lkk.locationnote.common.BaseFragment;
+import com.lkk.locationnote.common.BaseTabFragment;
 
 import butterknife.BindView;
 
-public class MapFragment extends BaseFragment {
+public class MapFragment extends BaseTabFragment {
 
     public static final String TAG = MapFragment.class.getSimpleName();
 
@@ -75,6 +75,7 @@ public class MapFragment extends BaseFragment {
 
     @Override
     public void onDestroyView() {
+        mMap.clear();
         mMapView.onDestroy();
         super.onDestroyView();
     }
@@ -82,6 +83,8 @@ public class MapFragment extends BaseFragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        mMapView.onSaveInstanceState(outState);
+        if (mMapView != null) {
+            mMapView.onSaveInstanceState(outState);
+        }
     }
 }

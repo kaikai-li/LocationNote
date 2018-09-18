@@ -40,8 +40,7 @@ public class LocationNoteActivity extends BaseActivity implements OnTitleRightIc
 
     private void initView() {
         mTitleView.setTitle(R.string.app_name);
-        ContentPagerAdapter adapter = new ContentPagerAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(adapter);
+        mViewPager.setAdapter(new ContentPagerAdapter(getSupportFragmentManager()));
         mBottomNavigation.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -67,7 +66,7 @@ public class LocationNoteActivity extends BaseActivity implements OnTitleRightIc
         mTitleView.setRightIconClickListener(listener);
     }
 
-    private class ContentPagerAdapter extends FragmentPagerAdapter {
+    private static class ContentPagerAdapter extends FragmentPagerAdapter {
 
         public ContentPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -86,9 +85,8 @@ public class LocationNoteActivity extends BaseActivity implements OnTitleRightIc
                 case 2:
                     fragment = SettingsFragment.newInstance();
                     break;
-            }
-            if (fragment != null) {
-                fragment.setRightIconCallback(LocationNoteActivity.this);
+                default:
+                        break;
             }
             return fragment;
         }

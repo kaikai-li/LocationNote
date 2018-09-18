@@ -12,6 +12,7 @@ import android.view.WindowManager;
 
 import com.lkk.locationnote.R;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import pub.devrel.easypermissions.EasyPermissions;
@@ -25,15 +26,25 @@ public class WelcomeActivity extends AppCompatActivity implements EasyPermission
 
     private String[] perms = {Manifest.permission.ACCESS_COARSE_LOCATION};
 
-    private Handler mHandler = new Handler() {
+    private static class WelcomeHandler extends Handler {
+        private final WeakReference<WelcomeActivity> mActivity;
+
+        public WelcomeHandler(WelcomeActivity activity) {
+            mActivity = new WeakReference<>(activity);
+        }
+
         @Override
         public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            Intent intent = new Intent(WelcomeActivity.this, LocationNoteActivity.class);
-            startActivity(intent);
-            finish();
+            WelcomeActivity activity = mActivity.get();
+            if (activity != null) {
+                Intent intent = new Intent(activity, LocationNoteActivity.class);
+                activity.startActivity(intent);
+                activity.finish();
+            }
         }
-    };
+    }
+
+    private final WelcomeHandler mHandler = new WelcomeHandler(this);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

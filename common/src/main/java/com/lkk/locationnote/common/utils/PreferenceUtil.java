@@ -30,7 +30,7 @@ public class PreferenceUtil {
     }
 
     public void saveLogName(String logName) {
-        mPreferences.edit().putString(LOG_NAME, logName).commit();
+        mPreferences.edit().putString(LOG_NAME, logName).apply();
     }
 
     public String getLogName() {

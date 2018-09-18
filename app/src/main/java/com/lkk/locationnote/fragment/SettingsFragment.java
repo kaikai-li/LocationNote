@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lkk.locationnote.R;
-import com.lkk.locationnote.common.BaseFragment;
+import com.lkk.locationnote.common.BaseTabFragment;
 
-public class SettingsFragment extends BaseFragment {
+public class SettingsFragment extends BaseTabFragment {
 
     public static SettingsFragment newInstance() {
         return new SettingsFragment();

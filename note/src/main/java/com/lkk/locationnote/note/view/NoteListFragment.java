@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.lkk.locationnote.common.BaseFragment;
+import com.lkk.locationnote.common.BaseTabFragment;
 import com.lkk.locationnote.common.data.NoteEntity;
 import com.lkk.locationnote.common.log.Log;
 import com.lkk.locationnote.note.R;
@@ -27,7 +27,7 @@ import butterknife.BindView;
 import pub.devrel.easypermissions.EasyPermissions;
 import pub.devrel.easypermissions.PermissionRequest;
 
-public class NoteListFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks {
+public class NoteListFragment extends BaseTabFragment implements EasyPermissions.PermissionCallbacks {
 
     public static final String TAG = NoteListFragment.class.getSimpleName();
     private String[] perms = {Manifest.permission.ACCESS_COARSE_LOCATION};

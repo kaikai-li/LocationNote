@@ -10,6 +10,12 @@ public class LocationNoteApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            // This process is dedicated to LeakCanary for heap analysis.
+//            // You should not init your app in this process.
+//            return;
+//        }
+//        LeakCanary.install(this);
         PreferenceUtil.getInstance().init(this);
         Log.init(this);
         CrashExceptionHandler.getInstance().init();
