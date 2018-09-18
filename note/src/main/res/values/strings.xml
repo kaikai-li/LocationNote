@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">note</string>
+    <string name="app_name" translatable="false">note</string>
     <string name="note_empty_text">Empty note</string>
     <string name="note_location_unknown">Unknown</string>
     <string name="add_note_title_hint">Title</string>
