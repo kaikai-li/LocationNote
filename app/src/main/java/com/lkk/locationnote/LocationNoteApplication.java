@@ -2,6 +2,7 @@ package com.lkk.locationnote;
 
 import android.support.multidex.MultiDexApplication;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.lkk.locationnote.common.log.CrashExceptionHandler;
 import com.lkk.locationnote.common.log.Log;
 import com.lkk.locationnote.common.utils.PreferenceUtil;
@@ -19,6 +20,11 @@ public class LocationNoteApplication extends MultiDexApplication {
         PreferenceUtil.getInstance().init(this);
         Log.init(this);
         CrashExceptionHandler.getInstance().init();
+        if (BuildConfig.DEBUG) {
+            ARouter.openLog();
+            ARouter.openDebug();
+        }
+        ARouter.init(this);
     }
 
     @Override

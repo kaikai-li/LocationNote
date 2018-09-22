@@ -2,9 +2,11 @@ package com.lkk.locationnote.common.log;
 
 import android.app.Application;
 
+import com.lkk.locationnote.common.BuildConfig;
+
 public class Log {
 
-    private static final boolean DEBUGGABLE = true;
+    private static final boolean DEBUGGABLE = BuildConfig.DEBUG;
 
     private static ILog mFileLog;
     private static ILog mLocatLog;

@@ -9,6 +9,8 @@ import java.util.Locale;
 
 public class Util {
 
+    public static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
+
     public static String formatTime(long timeMillis) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());

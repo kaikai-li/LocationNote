@@ -53,4 +53,6 @@ ext {
     lifecycle_version = '1.1.0'
     easyPermission_version = '1.2.0'
     eventbus_version = '3.1.1'
+    arouter_api = '1.4.0'
+    arouter_compiler = '1.2.1'
 }

@@ -20,6 +20,11 @@ android {
         versionName rootProject.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
     signingConfigs {
         sign {
@@ -36,6 +41,8 @@ android {
             signingConfig signingConfigs.sign
         }
         debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.sign
         }
     }
@@ -64,4 +71,7 @@ dependencies {
 //    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
 //    // Optional, if you use support library fragments:
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
+    //ARouter
+    implementation "com.alibaba:arouter-api:$rootProject.ext.arouter_api"
+    annotationProcessor "com.alibaba:arouter-compiler:$rootProject.ext.arouter_compiler"
 }

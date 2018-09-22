@@ -17,6 +17,7 @@ import com.amap.api.services.core.LatLonPoint;
 import com.lkk.locationnote.common.BaseFragment;
 import com.lkk.locationnote.common.TitleView;
 import com.lkk.locationnote.common.data.NoteEntity;
+import com.lkk.locationnote.common.utils.Util;
 import com.lkk.locationnote.note.R;
 import com.lkk.locationnote.note.R2;
 import com.lkk.locationnote.note.event.BackPressedEvent;
@@ -29,8 +30,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class NoteAddEditFragment extends BaseFragment {
-
-    private static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
 
     @BindView(R2.id.add_edit_title)
     TitleView mTitleView;
@@ -48,7 +47,7 @@ public class NoteAddEditFragment extends BaseFragment {
     public static NoteAddEditFragment newInstance(int noteId) {
         NoteAddEditFragment fragment = new NoteAddEditFragment();
         Bundle bundle = new Bundle(1);
-        bundle.putInt(EXTRA_NOTE_ID, noteId);
+        bundle.putInt(Util.EXTRA_NOTE_ID, noteId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -56,7 +55,7 @@ public class NoteAddEditFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mNoteId = getArguments().getInt(EXTRA_NOTE_ID);
+        mNoteId = getArguments().getInt(Util.EXTRA_NOTE_ID);
     }
 
     @Nullable

@@ -18,6 +18,7 @@ import com.lkk.locationnote.common.BaseFragment;
 import com.lkk.locationnote.common.TitleView;
 import com.lkk.locationnote.common.data.NoteEntity;
 import com.lkk.locationnote.common.log.Log;
+import com.lkk.locationnote.common.utils.Util;
 import com.lkk.locationnote.note.R;
 import com.lkk.locationnote.note.R2;
 import com.lkk.locationnote.note.event.BackPressedEvent;
@@ -32,7 +33,6 @@ import butterknife.OnClick;
 public class NoteDetailFragment extends BaseFragment {
 
     public static final String TAG = NoteDetailFragment.class.getSimpleName();
-    private static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
 
     @BindView(R2.id.note_detail_title_view)
     TitleView mTitleView;
@@ -50,7 +50,7 @@ public class NoteDetailFragment extends BaseFragment {
     public static NoteDetailFragment newInstance(int noteId) {
         NoteDetailFragment fragment = new NoteDetailFragment();
         Bundle bundle = new Bundle(1);
-        bundle.putInt(EXTRA_NOTE_ID, noteId);
+        bundle.putInt(Util.EXTRA_NOTE_ID, noteId);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -58,7 +58,7 @@ public class NoteDetailFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mNoteId = getArguments().getInt(EXTRA_NOTE_ID);
+        mNoteId = getArguments().getInt(Util.EXTRA_NOTE_ID);
     }
 
     @Nullable

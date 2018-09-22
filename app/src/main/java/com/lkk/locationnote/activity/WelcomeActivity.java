@@ -24,7 +24,7 @@ public class WelcomeActivity extends AppCompatActivity implements EasyPermission
     private static final int REQUEST_PERMISSION_CODE = 0x301;
     private static final int SEND_MSG_DELAY = 1000;
 
-    private String[] perms = {Manifest.permission.ACCESS_COARSE_LOCATION};
+    private String[] perms = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     private static class WelcomeHandler extends Handler {
         private final WeakReference<WelcomeActivity> mActivity;

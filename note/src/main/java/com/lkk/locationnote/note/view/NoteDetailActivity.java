@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.lkk.locationnote.common.BaseActivity;
 import com.lkk.locationnote.common.BaseFragment;
+import com.lkk.locationnote.common.utils.RouterPath;
+import com.lkk.locationnote.common.utils.Util;
 import com.lkk.locationnote.note.event.BackPressedEvent;
 import com.lkk.locationnote.note.event.HideKeyboardEvent;
 import com.lkk.locationnote.note.event.NoteEditEvent;
@@ -15,13 +18,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+@Route(path = RouterPath.NOTE_DETAIL_ACTIVITY)
 public class NoteDetailActivity extends BaseActivity {
-
-    private static final String EXTRA_NOTE_ID = "EXTRA_NOTE_ID";
 
     public static void start(Context context, int noteId) {
         Intent intent = new Intent(context, NoteDetailActivity.class);
-        intent.putExtra(EXTRA_NOTE_ID, noteId);
+        intent.putExtra(Util.EXTRA_NOTE_ID, noteId);
         context.startActivity(intent);
     }
 
@@ -29,8 +31,8 @@ public class NoteDetailActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        if (intent.hasExtra(EXTRA_NOTE_ID)) {
-            int noteId = intent.getIntExtra(EXTRA_NOTE_ID, -1);
+        if (intent.hasExtra(Util.EXTRA_NOTE_ID)) {
+            int noteId = intent.getIntExtra(Util.EXTRA_NOTE_ID, -1);
             BaseFragment detailFragment = (NoteDetailFragment) getSupportFragmentManager()
                     .findFragmentByTag(NoteDetailFragment.TAG);
             if (detailFragment == null) {

@@ -4,13 +4,13 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.lkk.amap.MapFragment;
+import com.lkk.amap.view.MapFragment;
 import com.lkk.locationnote.R;
+import com.lkk.locationnote.SwipeDisabledViewPager;
 import com.lkk.locationnote.fragment.SettingsFragment;
 import com.lkk.locationnote.common.BaseActivity;
 import com.lkk.locationnote.common.BaseFragment;
@@ -26,7 +26,7 @@ public class LocationNoteActivity extends BaseActivity implements OnTitleRightIc
     @BindView(R.id.titleView)
     TitleView mTitleView;
     @BindView(R.id.viewPager)
-    ViewPager mViewPager;
+    SwipeDisabledViewPager mViewPager;
     @BindView(R.id.bottom_navigation)
     BottomNavigationView mBottomNavigation;
 
