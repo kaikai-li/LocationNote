@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ok">"确定"</string>
+    <string name="cancel">"取消"</string>
     <string name="location_rationale_text">"位置笔记需要使用定位权限，请开启"</string>
 </resources>

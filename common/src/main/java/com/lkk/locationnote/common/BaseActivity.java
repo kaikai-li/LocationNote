@@ -1,5 +1,8 @@
 package com.lkk.locationnote.common;
 
+import android.content.Context;
+import android.support.annotation.StringRes;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,5 +34,15 @@ public abstract class BaseActivity extends AppCompatActivity {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
+    }
+
+    protected AlertDialog.Builder createAlertDialog(Context context, @StringRes int messageId) {
+        return createAlertDialog(context, getText(messageId));
+    }
+
+    protected AlertDialog.Builder createAlertDialog(Context context, CharSequence message) {
+        return new AlertDialog.Builder(context, R.style.AlertDialogStyle)
+                .setCancelable(false)
+                .setMessage(message);
     }
 }

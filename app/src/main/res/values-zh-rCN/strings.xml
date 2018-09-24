@@ -4,4 +4,5 @@
     <string name="tab_map_title">"地图"</string>
     <string name="tab_note_title">"笔记"</string>
     <string name="tab_settings_title">"设置"</string>
+    <string name="location_service_alert_msg">"请打开位置服务，来获取精准定位"</string>
 </resources>

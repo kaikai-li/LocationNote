@@ -1,5 +1,8 @@
 package com.lkk.locationnote.activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +14,8 @@ import android.view.View;
 import com.lkk.amap.view.MapFragment;
 import com.lkk.locationnote.R;
 import com.lkk.locationnote.SwipeDisabledViewPager;
+import com.lkk.locationnote.common.event.LocationServiceEvent;
+import com.lkk.locationnote.common.log.Log;
 import com.lkk.locationnote.fragment.SettingsFragment;
 import com.lkk.locationnote.common.BaseActivity;
 import com.lkk.locationnote.common.BaseFragment;
@@ -18,10 +23,15 @@ import com.lkk.locationnote.common.OnTitleRightIconCallback;
 import com.lkk.locationnote.common.TitleView;
 import com.lkk.locationnote.note.view.NoteListFragment;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.OnPageChange;
 
 public class LocationNoteActivity extends BaseActivity implements OnTitleRightIconCallback {
+
+    private static final String TAG = LocationNoteActivity.class.getSimpleName();
+    private static final int REQUEST_CODE_LOCATION = 0x300;
 
     @BindView(R.id.titleView)
     TitleView mTitleView;
@@ -36,6 +46,25 @@ public class LocationNoteActivity extends BaseActivity implements OnTitleRightIc
         setContentView(R.layout.activity_location_note);
 
         initView();
+        if (!isLocationServiceEnabled()) {
+            createAlertDialog(this, R.string.location_service_alert_msg)
+                    .setNegativeButton(R.string.cancel, null)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent locationIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            startActivityForResult(locationIntent, REQUEST_CODE_LOCATION);
+                        }
+                    }).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_LOCATION) {
+            EventBus.getDefault().post(new LocationServiceEvent());
+        }
     }
 
     private void initView() {
@@ -64,6 +93,18 @@ public class LocationNoteActivity extends BaseActivity implements OnTitleRightIc
     @Override
     public void setRightIconClickListener(View.OnClickListener listener) {
         mTitleView.setRightIconClickListener(listener);
+    }
+
+    public boolean isLocationServiceEnabled() {
+        int locationMode = 0;
+        try {
+            locationMode = Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE);
+        } catch (Settings.SettingNotFoundException e) {
+            Log.e(TAG, "Get location service error, " + e.getMessage());
+            return false;
+        }
+
+        return locationMode != Settings.Secure.LOCATION_MODE_OFF;
     }
 
     private static class ContentPagerAdapter extends FragmentPagerAdapter {

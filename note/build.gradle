@@ -32,14 +32,19 @@ dependencies {
     implementation project(':common')
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
     implementation "com.android.support:design:$rootProject.ext.supportVersion"
+    // ButterKnife
     implementation "com.jakewharton:butterknife:$rootProject.ext.butterknifVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifVersion"
+    // Lifecycle
     implementation "android.arch.lifecycle:extensions:$rootProject.ext.lifecycle_version"
+    // Amap
     implementation 'com.amap.api:search:latest.integration'
     implementation 'com.amap.api:location:latest.integration'
+    // Easypermission
     implementation "pub.devrel:easypermissions:$rootProject.ext.easyPermission_version"
+    // EventBus
     implementation "org.greenrobot:eventbus:$rootProject.ext.eventbus_version"
-    //ARouter
+    // ARouter
     implementation "com.alibaba:arouter-api:$rootProject.ext.arouter_api"
     annotationProcessor "com.alibaba:arouter-compiler:$rootProject.ext.arouter_compiler"
 }

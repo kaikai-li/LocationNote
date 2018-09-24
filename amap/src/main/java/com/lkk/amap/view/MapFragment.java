@@ -11,11 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.AMapOptions;
+import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.CameraPosition;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
@@ -25,9 +31,14 @@ import com.lkk.amap.R2;
 import com.lkk.amap.viewmodel.MapViewModel;
 import com.lkk.locationnote.common.BaseTabFragment;
 import com.lkk.locationnote.common.data.NoteEntity;
+import com.lkk.locationnote.common.event.LocationServiceEvent;
 import com.lkk.locationnote.common.log.Log;
 import com.lkk.locationnote.common.utils.RouterPath;
 import com.lkk.locationnote.common.utils.Util;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -63,6 +74,7 @@ public class MapFragment extends BaseTabFragment {
         if (mMap == null) {
             mMap = mMapView.getMap();
         }
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -107,13 +119,7 @@ public class MapFragment extends BaseTabFragment {
             @Override
             public void onMyLocationChange(Location location) {
                 Log.d(TAG, "onMyLocationChange-->location= " + location);
-                if (mLocationMarker != null) {
-                    mLocationMarker.destroy();
-                }
-                Marker marker = mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_add_location)));
-                mLocationMarker = marker;
+                addLocationMaker(location.getLatitude(), location.getLongitude());
             }
         });
         mMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
@@ -162,6 +168,7 @@ public class MapFragment extends BaseTabFragment {
         mMap = null;
         mMapView.onDestroy();
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -170,5 +177,46 @@ public class MapFragment extends BaseTabFragment {
         if (mMapView != null) {
             mMapView.onSaveInstanceState(outState);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLocationServiceEvent(LocationServiceEvent event) {
+        Log.d(TAG, "On location service event received!");
+        final AMapLocationClient locationClient = new AMapLocationClient(getContext());
+        AMapLocationListener locationListener = new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+                Log.d(TAG, "Start location result, aMapLocation= " + aMapLocation);
+                if (aMapLocation != null && aMapLocation.getErrorCode() == 0) {
+                    double latitude = aMapLocation.getLatitude();
+                    double longitude = aMapLocation.getLongitude();
+                    addLocationMaker(latitude, longitude);
+                    CameraPosition cameraPosition = mMap.getCameraPosition();
+                    mMap.animateCamera(CameraUpdateFactory
+                            .newCameraPosition(new CameraPosition(new LatLng(latitude, longitude),
+                                    cameraPosition.zoom, cameraPosition.tilt, cameraPosition.bearing)));
+                }
+                locationClient.stopLocation();
+                locationClient.onDestroy();
+            }
+        };
+        locationClient.setLocationListener(locationListener);
+        AMapLocationClientOption locationOption = new AMapLocationClientOption();
+        locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        locationOption.setOnceLocation(true);
+        locationOption.setOnceLocationLatest(true);
+        locationOption.setNeedAddress(true);
+        locationClient.setLocationOption(locationOption);
+        locationClient.startLocation();
+    }
+
+    private void addLocationMaker(double latitude, double longitude) {
+        if (mLocationMarker != null) {
+            mLocationMarker.destroy();
+        }
+        Marker marker = mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(latitude, longitude))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_add_location)));
+        mLocationMarker = marker;
     }
 }
