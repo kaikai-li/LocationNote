@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="note_empty_text">暂无笔记</string>
+    <string name="note_empty_text">暂无笔记，快点击"\"+\""添加吧！</string>
     <string name="note_location_unknown">未知</string>
     <string name="add_note_title_hint">标题</string>
     <string name="back">返回</string>
@@ -10,4 +10,7 @@
     <string name="new_note_text">新建笔记</string>
     <string name="update_note_text">更新笔记</string>
     <string name="note_detail_text">详情</string>
+    <string name="delete">删除</string>
+    <string name="delete_success">删除成功</string>
+    <string name="delete_fail">删除失败</string>
 </resources>

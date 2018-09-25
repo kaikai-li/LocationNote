@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">note</string>
-    <string name="note_empty_text">Empty note</string>
+    <string name="note_empty_text">Notes empty, click "\"+\"" to add one</string>
     <string name="note_location_unknown">Unknown</string>
     <string name="add_note_title_hint">Title</string>
     <string name="back">back</string>
@@ -10,4 +10,7 @@
     <string name="new_note_text">Create note</string>
     <string name="update_note_text">Update note</string>
     <string name="note_detail_text">Detail</string>
+    <string name="delete">Delete</string>
+    <string name="delete_success">Delete success</string>
+    <string name="delete_fail">Delete fail</string>
 </resources>

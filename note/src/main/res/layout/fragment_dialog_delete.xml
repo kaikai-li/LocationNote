@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/note_list_item_delete"
+    android:layout_width="wrap_content"
+    android:minWidth="200dp"
+    android:layout_height="wrap_content"
+    android:minHeight="48dp"
+    android:textSize="16sp"
+    android:textColor="@color/color_4a4a4a"
+    android:gravity="center_vertical"
+    android:paddingStart="16dp"
+    android:text="@string/delete"/>

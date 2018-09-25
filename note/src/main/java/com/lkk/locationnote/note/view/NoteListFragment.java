@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,7 +19,12 @@ import com.lkk.locationnote.common.data.NoteEntity;
 import com.lkk.locationnote.common.log.Log;
 import com.lkk.locationnote.note.R;
 import com.lkk.locationnote.note.R2;
+import com.lkk.locationnote.note.event.ItemDeleteEvent;
 import com.lkk.locationnote.note.viewmodel.NoteListViewModel;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Collections;
 import java.util.List;
@@ -62,6 +68,7 @@ public class NoteListFragment extends BaseTabFragment implements EasyPermissions
         mNoteRecyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new NoteRecyclerViewAdapter(getContext(), mViewModel, Collections.EMPTY_LIST);
         mNoteRecyclerView.setAdapter(mAdapter);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -82,6 +89,20 @@ public class NoteListFragment extends BaseTabFragment implements EasyPermissions
                 NoteDetailActivity.start(getContext(), id);
             }
         });
+        mViewModel.getLongClickNoteEvent().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer id) {
+                Log.d(TAG, "Item long clicked, id= " + id);
+                NoteItemDeleteDialog deleteDialog = NoteItemDeleteDialog.newInstance();
+                deleteDialog.show(getChildFragmentManager(), null);
+            }
+        });
+        mViewModel.getSnackBarMsgId().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer resourceId) {
+                Snackbar.make(getView(), resourceId, Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void setContentVisible(boolean empty) {
@@ -98,6 +119,12 @@ public class NoteListFragment extends BaseTabFragment implements EasyPermissions
     public void onResume() {
         super.onResume();
         mViewModel.loadNotes();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 
     private void initTitle() {
@@ -134,5 +161,10 @@ public class NoteListFragment extends BaseTabFragment implements EasyPermissions
     @Override
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
         Log.d(TAG, "On permissions denied");
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onItemDeleteEvent(ItemDeleteEvent event) {
+        mViewModel.deleteNoteById(mViewModel.getLongClickNoteEvent().getValue());
     }
 }

@@ -21,4 +21,6 @@ public interface NotesDao {
     public List<NoteEntity> loadAllNotes();
     @Query("SELECT * FROM notes WHERE id = :noteId")
     public NoteEntity getNoteById(int noteId);
+    @Query("DELETE FROM notes WHERE id= :noteId")
+    public int deleteNoteById(int noteId);
 }

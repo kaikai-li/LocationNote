@@ -155,4 +155,35 @@ public class NotesLocalDataSource implements NotesDataSource {
             }
         });
     }
+
+    @Override
+    public void deleteNoteById(final int id, final NotesCallback<Integer> callback) {
+        Single.fromCallable(new Callable<Integer>() {
+
+            @Override
+            public Integer call() throws Exception {
+                return mNotesDao.deleteNoteById(id);
+            }
+        })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new DisposableSingleObserver<Integer>() {
+            @Override
+            public void onSuccess(Integer integer) {
+                Log.d(TAG, "Delete note success, result= " + integer);
+                if (callback != null) {
+                    callback.onSuccess(integer);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "Delete note error, " + e.getMessage());
+                if (callback != null) {
+                    callback.onFail(e.getMessage());
+                }
+            }
+        });
+    }
+
 }

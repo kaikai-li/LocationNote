@@ -96,7 +96,8 @@ public class NoteRecyclerViewAdapter extends
         return mNotes.get(position).getId();
     }
 
-    class NoteItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class NoteItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
+            View.OnLongClickListener {
 
         @BindView(R2.id.note_item_location)
         TextView mLocation;
@@ -111,11 +112,18 @@ public class NoteRecyclerViewAdapter extends
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             mViewModel.getOpenNoteEvent().setValue(getNoteItemId(getAdapterPosition()));
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            mViewModel.getLongClickNoteEvent().setValue(getNoteItemId(getAdapterPosition()));
+            return true;
         }
     }
 }

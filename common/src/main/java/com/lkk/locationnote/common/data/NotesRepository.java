@@ -42,4 +42,9 @@ public class NotesRepository implements NotesDataSource {
     public void updateNote(NoteEntity note, NotesCallback<Integer> callback) {
         mLocalDataSource.updateNote(note, callback);
     }
+
+    @Override
+    public void deleteNoteById(int id, NotesCallback<Integer> callback) {
+        mLocalDataSource.deleteNoteById(id, callback);
+    }
 }
