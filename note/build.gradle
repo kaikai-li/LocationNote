@@ -38,7 +38,6 @@ dependencies {
     // Lifecycle
     implementation "android.arch.lifecycle:extensions:$rootProject.ext.lifecycle_version"
     // Amap
-    implementation 'com.amap.api:search:latest.integration'
     implementation 'com.amap.api:location:latest.integration'
     // Easypermission
     implementation "pub.devrel:easypermissions:$rootProject.ext.easyPermission_version"
@@ -47,4 +46,6 @@ dependencies {
     // ARouter
     implementation "com.alibaba:arouter-api:$rootProject.ext.arouter_api"
     annotationProcessor "com.alibaba:arouter-compiler:$rootProject.ext.arouter_compiler"
+    // CardView
+    implementation "com.android.support:cardview-v7:$rootProject.ext.supportVersion"
 }
