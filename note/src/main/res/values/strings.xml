@@ -4,7 +4,7 @@
     <string name="note_location_unknown">Unknown</string>
     <string name="add_note_title_hint">Title</string>
     <string name="back">back</string>
-    <string name="add_note_done">done</string>
+    <string name="done">done</string>
     <string name="note_title_empty">Note title is empty!</string>
     <string name="location_fail">Location fail</string>
     <string name="new_note_text">Create note</string>
@@ -13,4 +13,8 @@
     <string name="delete">Delete</string>
     <string name="delete_success">Delete success</string>
     <string name="delete_fail">Delete fail</string>
+    <string name="add_location">Add location</string>
+    <string name="add_location_hint">Please add here</string>
+    <string name="content_empty">Content is empty!</string>
+    <string name="please_select_location">Please select location</string>
 </resources>

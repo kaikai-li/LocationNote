@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {NoteEntity.class}, version = 1)
+@Database(entities = {NoteEntity.class}, version = 2)
 public abstract class NoteDatabase extends RoomDatabase {
 
     private static final Object mLock = new Object();

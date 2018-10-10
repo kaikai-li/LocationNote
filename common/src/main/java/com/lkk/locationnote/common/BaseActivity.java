@@ -2,8 +2,10 @@ package com.lkk.locationnote.common;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -44,5 +46,19 @@ public abstract class BaseActivity extends AppCompatActivity {
         return new AlertDialog.Builder(context, R.style.AlertDialogStyle)
                 .setCancelable(false)
                 .setMessage(message);
+    }
+
+    protected void showSnackbar(View view, String message) {
+        if (view == null || TextUtils.isEmpty(message)) {
+            return;
+        }
+        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    protected void showSnackbar(View view, @StringRes int resId) {
+        if (view == null) {
+            return;
+        }
+        showSnackbar(view, getString(resId));
     }
 }

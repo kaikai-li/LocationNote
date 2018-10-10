@@ -5,21 +5,20 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.amap.api.services.core.LatLonPoint;
-import com.amap.api.services.geocoder.GeocodeResult;
-import com.amap.api.services.geocoder.GeocodeSearch;
-import com.amap.api.services.geocoder.RegeocodeQuery;
-import com.amap.api.services.geocoder.RegeocodeResult;
 import com.lkk.locationnote.common.Injection;
 import com.lkk.locationnote.common.data.NoteEntity;
 import com.lkk.locationnote.common.data.NotesDataSource;
 import com.lkk.locationnote.common.data.NotesRepository;
 import com.lkk.locationnote.common.log.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddEditViewModel extends AndroidViewModel {
 
@@ -103,13 +102,24 @@ public class AddEditViewModel extends AndroidViewModel {
             @Override
             public void onLocationChanged(AMapLocation aMapLocation) {
                 Log.d(TAG, "Start location result, aMapLocation= " + aMapLocation);
+                NoteLocation location = null;
                 if (aMapLocation != null && aMapLocation.getErrorCode() == 0) {
-                    NoteLocation location = new NoteLocation(aMapLocation.getAddress(),
-                            aMapLocation.getLongitude(), aMapLocation.getLatitude());
-                    mLocation.setValue(location);
-                } else {
-                    mLocation.setValue(null);
+                    List<String> addresses = new ArrayList<>();
+                    if (!TextUtils.isEmpty(aMapLocation.getAoiName())) {
+                        addresses.add(aMapLocation.getAoiName());
+                    }
+                    if (!TextUtils.isEmpty(aMapLocation.getPoiName())) {
+                        addresses.add(aMapLocation.getPoiName());
+                    }
+                    if (!TextUtils.isEmpty(aMapLocation.getStreet())) {
+                        addresses.add(aMapLocation.getStreet());
+                    }
+                    if (!TextUtils.isEmpty(aMapLocation.getDescription())) {
+                        addresses.add(aMapLocation.getDescription());
+                    }
+                    location = new NoteLocation(addresses, aMapLocation.getLongitude(), aMapLocation.getLatitude());
                 }
+                mLocation.setValue(location);
                 locationClient.stopLocation();
                 locationClient.onDestroy();
             }
@@ -124,43 +134,19 @@ public class AddEditViewModel extends AndroidViewModel {
         locationClient.startLocation();
     }
 
-    public void startRegeocode(final LatLonPoint point) {
-        GeocodeSearch geocodeSearch = new GeocodeSearch(mContext);
-        geocodeSearch.setOnGeocodeSearchListener(new GeocodeSearch.OnGeocodeSearchListener() {
-            @Override
-            public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int code) {
-                Log.d(TAG, "onRegeocodeSearched, code= " + code);
-                // 1000为成功，其他为失败
-                String address = null;
-                if (code == 1000) {
-                    address = regeocodeResult.getRegeocodeAddress().getFormatAddress();
-                }
-
-                NoteLocation location = new NoteLocation(address,
-                        point.getLongitude(), point.getLatitude());
-                mLocation.setValue(location);
-            }
-
-            @Override
-            public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {}
-        });
-        RegeocodeQuery regeocodeQuery = new RegeocodeQuery(point, 200, GeocodeSearch.AMAP);
-        geocodeSearch.getFromLocationAsyn(regeocodeQuery);
-    }
-
     public static class NoteLocation {
-        private final String mAddress;
+        private final List<String> mAddresses;
         private final double mLongitude;
         private final double mLatitude;
 
-        public NoteLocation(String address, double longitude, double latitude) {
-            mAddress = address;
+        public NoteLocation(List<String> addresses, double longitude, double latitude) {
+            mAddresses = addresses;
             mLongitude = longitude;
             mLatitude = latitude;
         }
 
-        public String getAddress() {
-            return mAddress;
+        public List<String> getAddresses() {
+            return mAddresses;
         }
 
         public double getLongitude() {

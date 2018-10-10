@@ -7,13 +7,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.amap.api.services.core.LatLonPoint;
 import com.lkk.locationnote.common.BaseFragment;
 import com.lkk.locationnote.common.TitleView;
 import com.lkk.locationnote.common.data.NoteEntity;
@@ -80,17 +78,6 @@ public class NoteDetailFragment extends BaseFragment {
                 initView(noteEntity);
             }
         });
-        mViewModel.getAddress().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String address) {
-                Log.d(TAG, "Get address result= " + address);
-                if (!TextUtils.isEmpty(address)) {
-                    mLocation.setText(address);
-                } else {
-                    mLocation.setText(R.string.note_location_unknown);
-                }
-            }
-        });
     }
 
     @Override
@@ -134,7 +121,6 @@ public class NoteDetailFragment extends BaseFragment {
         mNote = noteEntity;
         mTitle.setText(noteEntity.getTitle());
         mContent.setText(noteEntity.getContent());
-        mViewModel.startRegeocode(new LatLonPoint(noteEntity.getLatitude(),
-                noteEntity.getLongitude()));
+        mLocation.setText(noteEntity.getLocation());
     }
 }

@@ -4,7 +4,7 @@
     <string name="note_location_unknown">未知</string>
     <string name="add_note_title_hint">标题</string>
     <string name="back">返回</string>
-    <string name="add_note_done">完成</string>
+    <string name="done">完成</string>
     <string name="note_title_empty">标题不允许为空！</string>
     <string name="location_fail">定位失败</string>
     <string name="new_note_text">新建笔记</string>
@@ -13,4 +13,8 @@
     <string name="delete">删除</string>
     <string name="delete_success">删除成功</string>
     <string name="delete_fail">删除失败</string>
+    <string name="add_location">添加位置</string>
+    <string name="add_location_hint">请在此处添加</string>
+    <string name="content_empty">内容为空！</string>
+    <string name="please_select_location">请选择位置！</string>
 </resources>

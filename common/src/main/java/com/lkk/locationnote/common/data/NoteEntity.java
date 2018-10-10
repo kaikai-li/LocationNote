@@ -12,6 +12,7 @@ public class NoteEntity {
     private long time;
     private double longitude;
     private double latitude;
+    private String location;
 
     public NoteEntity(){}
 
@@ -22,6 +23,7 @@ public class NoteEntity {
         setTime(builder.time);
         setLongitude(builder.longitude);
         setLatitude(builder.latitude);
+        setLocation(builder.location);
     }
 
     public int getId() {
@@ -72,6 +74,14 @@ public class NoteEntity {
         this.latitude = latitude;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     @Override
     public String toString() {
         return "NoteEntity:id= " + id + ",title= " + title + ",content= " + content + ",time= "
@@ -85,6 +95,7 @@ public class NoteEntity {
         private long time;
         private double longitude;
         private double latitude;
+        private String location;
 
         public Builder() {
         }
@@ -116,6 +127,11 @@ public class NoteEntity {
 
         public Builder latitude(double val) {
             latitude = val;
+            return this;
+        }
+
+        public Builder location(String location) {
+            this.location = location;
             return this;
         }
 
