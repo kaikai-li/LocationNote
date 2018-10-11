@@ -1,0 +1,7 @@
+<resources>
+    <string name="feedback">反馈</string>
+    <string name="about">关于</string>
+    <string name="setting_about_desc">位置笔记是一款记录位置的笔记类应用，用户在记录内容的同时可以准确记录当前位置</string>
+    <string name="setting_about_copyright">李开开©版权所有</string>
+    <string name="feedback_hint">请发送反馈内容至likaikai5566@126.com</string>
+</resources>

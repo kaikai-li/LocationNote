@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">LocationNote</string>
     <string name="tab_map_title">Map</string>
     <string name="tab_note_title">Note</string>
     <string name="tab_settings_title">Settings</string>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="feedback">Feedback</string>
+    <string name="about">About</string>
+    <string name="setting_about_desc">Location note is a note which can record location at the same time.</string>
+    <string name="setting_about_copyright">Li Kaikai©Copyright Reserved</string>
+    <string name="feedback_hint">Please send to likaikai5566@126.com</string>
+</resources>

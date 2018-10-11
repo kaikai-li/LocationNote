@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="settingItemStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/setting_item_min_height</item>
+        <item name="android:textSize">@dimen/setting_item_text_size</item>
+        <item name="android:textColor">@color/color_4a4a4a</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">@dimen/setting_item_padding</item>
+        <item name="android:paddingEnd">@dimen/setting_item_padding</item>
+        <item name="android:drawableEnd">@drawable/ic_arrow_right</item>
+        <item name="android:background">@drawable/setting_item_bg</item>
+        <item name="android:clickable">true</item>
+    </style>
+</resources>

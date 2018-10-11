@@ -16,12 +16,12 @@ import com.lkk.locationnote.R;
 import com.lkk.locationnote.SwipeDisabledViewPager;
 import com.lkk.locationnote.common.event.LocationServiceEvent;
 import com.lkk.locationnote.common.log.Log;
-import com.lkk.locationnote.fragment.SettingsFragment;
 import com.lkk.locationnote.common.BaseActivity;
 import com.lkk.locationnote.common.BaseFragment;
 import com.lkk.locationnote.common.OnTitleRightIconCallback;
 import com.lkk.locationnote.common.TitleView;
 import com.lkk.locationnote.note.view.NoteListFragment;
+import com.lkk.locationnote.setting.view.SettingsFragment;
 
 import org.greenrobot.eventbus.EventBus;
 

@@ -67,7 +67,7 @@ public class FileLog implements ILog {
     }
 
     private File getLogFile() {
-        String logsDir = mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath() + "/logs";
+        String logsDir = Util.getLogsDir(mContext);
         File logsDirFile = new File(logsDir);
         if (!logsDirFile.exists()) {
             logsDirFile.mkdirs();
