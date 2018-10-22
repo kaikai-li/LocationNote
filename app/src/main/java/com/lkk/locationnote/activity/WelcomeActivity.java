@@ -7,22 +7,25 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.lkk.locationnote.R;
+import com.lkk.locationnote.common.BaseActivity;
+import com.lkk.locationnote.common.utils.ImageLoaderUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import butterknife.BindView;
 import pub.devrel.easypermissions.EasyPermissions;
 import pub.devrel.easypermissions.PermissionRequest;
 
-public class WelcomeActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
+public class WelcomeActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
 
     private static final int MSG_WHAT_NOTE = 0x300;
     private static final int REQUEST_PERMISSION_CODE = 0x301;
-    private static final int SEND_MSG_DELAY = 1000;
+    private static final int SEND_MSG_DELAY = 3000;
 
     private String[] perms = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
@@ -46,11 +49,16 @@ public class WelcomeActivity extends AppCompatActivity implements EasyPermission
 
     private final WelcomeHandler mHandler = new WelcomeHandler(this);
 
+    @BindView(R.id.welcome_image_view)
+    ImageView mImageView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
+
+        ImageLoaderUtil.loadImage(this, "http://api.dujin.org/bing/1920.php", mImageView);
 
         if (EasyPermissions.hasPermissions(this, perms)) {
             mHandler.sendEmptyMessageDelayed(MSG_WHAT_NOTE, SEND_MSG_DELAY);
@@ -61,6 +69,12 @@ public class WelcomeActivity extends AppCompatActivity implements EasyPermission
                     .setTheme(R.style.alertDialogStype)
                     .build());
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeMessages(MSG_WHAT_NOTE);
     }
 
     @Override

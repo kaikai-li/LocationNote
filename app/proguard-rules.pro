@@ -20,8 +20,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--dontwarn com.amap.api.mapcore2d.MapMessage
--dontwarn com.amap.api.maps.**
+-dontwarn com.amap.api.mapcore2d.**
+-dontwarn com.amap.api.maps2d.**
 
 #EventBus
 -keepattributes *Annotation*

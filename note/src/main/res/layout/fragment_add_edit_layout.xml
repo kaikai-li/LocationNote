@@ -29,18 +29,20 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/note_content_size"
         android:textColor="@color/color_B3000000"
-        android:minLines="20"
+        android:minLines="10"
         android:gravity="start|top"
         android:layout_below="@id/content_title_wrapper"
         android:paddingStart="@dimen/note_content_margin"
-        android:paddingEnd="@dimen/note_content_margin"/>
+        android:paddingEnd="@dimen/note_content_margin"
+        android:lineSpacingMultiplier="1.5"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/add_edit_content"
         android:layout_marginStart="@dimen/note_content_margin"
         android:layout_marginEnd="@dimen/note_content_margin"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

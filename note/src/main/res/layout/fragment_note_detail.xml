@@ -39,6 +39,8 @@
             android:layout_marginStart="@dimen/note_content_margin"
             android:layout_marginEnd="@dimen/note_content_margin"
             android:layout_marginTop="@dimen/note_content_margin"
+            android:layout_marginBottom="@dimen/note_content_margin"
+            android:lineSpacingMultiplier="1.5"
             tools:text="This is content"/>
         <TextView
             android:id="@+id/note_detail_location"
